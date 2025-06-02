@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "interactive-feedback-mcp": {
+      "command": "/Users/crmado/github/interactive-feedback-mcp/run-mcp-server.sh",
+      "timeout": 600,
+      "autoApprove": [
+        "interactive_feedback"
+      ]
+    }
+  }
+} 

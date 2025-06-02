@@ -1,0 +1,89 @@
+# Git 相關
+.git
+.gitignore
+.gitattributes
+
+# Python 相關
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虛擬環境
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE 相關
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS 相關
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows 相關
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 日誌檔案
+*.log
+logs/
+
+# 臨時檔案
+*.tmp
+*.temp
+.cache/
+
+# Docker 相關
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# 文件（排除 README.md 和 LICENSE，因為需要複製到容器中）
+*.md
+!README.md
+docs/
+
+# 測試相關
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# 其他
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 專案特定
+data/
+images/
+.github/ 

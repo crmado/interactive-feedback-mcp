@@ -1,0 +1,77 @@
+services:
+  interactive-feedback-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: interactive-feedback-mcp
+    restart: unless-stopped
+    platform: linux/amd64
+    
+    # 環境變數
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DISPLAY=${DISPLAY:-:0}
+      - QT_QPA_PLATFORM=xcb
+      - QT_X11_NO_MITSHM=1
+    
+    # 卷掛載
+    volumes:
+      # 專案目錄掛載（可根據需要調整）
+      - ./data:/app/data
+      - ./logs:/app/logs
+      # X11 socket 用於 GUI 顯示（Linux/macOS）
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # 主機的專案目錄（可選，用於開發）
+      - .:/app/workspace:ro
+    
+    # 安全設定
+    security_opt:
+      - seccomp:unconfined
+    
+    # 標籤
+    labels:
+      - "com.example.description=Interactive Feedback MCP Server"
+      - "com.example.version=0.1.0"
+    
+    # 健康檢查
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # 可選：開發模式服務
+  interactive-feedback-mcp-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: interactive-feedback-mcp-dev
+    restart: "no"
+    platform: linux/amd64
+    profiles:
+      - dev
+    
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DISPLAY=${DISPLAY:-:0}
+      - QT_QPA_PLATFORM=xcb
+      - QT_X11_NO_MITSHM=1
+    
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - .:/app/workspace
+    
+    # 開發模式命令
+    command: ["uv", "run", "fastmcp", "dev", "server.py"]
+    
+    ports:
+      - "8000:8000"  # FastMCP 開發伺服器埠
+
+volumes:
+  app_data:
+    driver: local
+  app_logs:
+    driver: local 

@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "interactive-feedback-mcp": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "--platform", "linux/amd64",
+        "--name", "interactive-feedback-mcp-cursor",
+        "-v", "/Users/crmado/github/interactive-feedback-mcp/data:/app/data",
+        "-v", "/Users/crmado/github/interactive-feedback-mcp/logs:/app/logs",
+        "-e", "PYTHONUNBUFFERED=1",
+        "interactive-feedback-mcp",
+        "uv", "run", "server.py"
+      ],
+      "timeout": 600,
+      "autoApprove": [
+        "interactive_feedback"
+      ]
+    }
+  }
+} 
